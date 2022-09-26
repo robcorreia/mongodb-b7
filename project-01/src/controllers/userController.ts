@@ -48,3 +48,15 @@ export const addUserAction = async (req: Request, res: Response) => {
     console.log("usuário não adicionado!!");
   }
 };
+
+export const incrementAgeAction = async (req: Request, res: Response) => {
+  let id: string = req.params.id;
+  //console.log("Id: ", id);
+  let usuario = await User.findOne({ _id: id });
+  //console.log("Usuario com o id: ", usuario)
+  if (usuario) {
+    usuario.age++;
+    await usuario.save();
+  }
+  res.redirect("/");
+};
